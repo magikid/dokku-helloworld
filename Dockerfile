@@ -14,6 +14,6 @@ VOLUME ["/data"]
 
 ADD . /data
 
-WORK DIR /data
+WORKDIR /data
 
 CMD cd /data; npm install; npm start
