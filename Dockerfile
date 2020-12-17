@@ -1,19 +1,17 @@
 # Dockerfile to build sample hello world
 
-FROM ubuntu:trusty
+FROM node:12
 
-MAINTAINER Devin Nguyen <devin2712@gmail.com>
+MAINTAINER Chris Jones <chris@christopherjones.us>
 
-RUN apt-get update -y
-RUN apt-get -qq update -y
+ARG NODE_ENV=production
+ENV NODE_ENV ${NODE_ENV}
 
-RUN apt-get install -y nodejs-legacy
-RUN apt-get install -y npm
+WORKDIR /app
+COPY package*.json ./
+RUN npm ci --only=production
 
-VOLUME ["/data"]
+COPY . .
 
-ADD . /data
-
-WORKDIR /data
-
-CMD cd /data; npm install; npm start
+EXPOSE 5000
+CMD ["node", "server.js"]
